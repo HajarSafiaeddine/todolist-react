@@ -1,23 +1,33 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import { Form } from './components/Form';
+import { TodoList } from './components/TodoList';
 
 function App() {
+  const [inputText,setInputText] = useState("");
+  const [todos,setTodos] = useState([]);
+  const [status,setStatus] = useState('all');
+  const [filtredTodos,setFiltredTodos] = useState([]);
+  const filterHandler = () =>{
+    switch(status){
+      case "completed":
+        setFiltredTodos(todos.filter((todo) => todo.completed))
+        break;
+      case "completed":
+          setFiltredTodos(todos.filter((todo) => todo.completed))
+        break;
+      default:
+            setFiltredTodos(todos);
+        break;
+    }
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      <header>
+        <h1>my todo list</h1>
       </header>
+      <Form inputText={inputText} todos={todos} setTodos={setTodos} setInputText={setInputText} setStatus={setStatus}/>
+      <TodoList setTodos={setTodos} todos={todos} />
     </div>
   );
 }
